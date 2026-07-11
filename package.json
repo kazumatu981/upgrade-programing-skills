@@ -1,0 +1,21 @@
+{
+    "name": "upgrade-programing-skills",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "presentation": "npx @marp-team/marp-cli@latest -s ./documents/docs"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kazumatu981/upgrade-programing-skills.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/kazumatu981/upgrade-programing-skills/issues"
+    },
+    "homepage": "https://github.com/kazumatu981/upgrade-programing-skills#readme"
+}
