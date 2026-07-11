@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "ms-vscode.live-server",
+        "kisstkondoros.vscode-codemetrics",
+        "esbenp.prettier-vscode",
+        "hediet.vscode-drawio"
+    ]
+}
