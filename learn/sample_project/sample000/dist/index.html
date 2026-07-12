@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>サイコロゲーム</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <h1>サイコロゲーム</h1>
+    <button id="rollButton">サイコロを振る</button>
+    <div id="diceContainer" class="dice-container">
+      <div id="dice1" class="dice">
+        <div id="dice1-face" class="dice-face">1</div>
+        <button id="dice1-stopButton" class="roll-button">止める</button>
+      </div>
+      <div id="dice2" class="dice">
+        <div id="dice2-face" class="dice-face">2</div>
+        <button id="dice2-stopButton" class="roll-button">止める</button>
+      </div>
+      <div id="dice3" class="dice">
+        <div id="dice3-face" class="dice-face">3</div>
+        <button id="dice3-stopButton" class="roll-button">止める</button>
+      </div>
+    </div>
+    <div id="resultContainer">
+      <h2>結果</h2>
+      <p id="result"></p>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>
