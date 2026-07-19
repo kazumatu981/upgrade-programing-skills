@@ -10,10 +10,10 @@ export function __assertIsNumber(x) {
     }
 }
 
-export function __assertBetween(value, minimal, maximal) {
-    if (value < minimal || maximal < value) {
+export function __assertBetween(value, minimum, maximum) {
+    if (value < minimum || maximum < value) {
         throw new Error(
-            `The value ${value} is not between ${minimal} and ${maximal}`
+            `The value ${value} is not between ${minimum} and ${maximum}`
         );
     }
 }
