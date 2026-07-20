@@ -10,10 +10,24 @@ export function __assertIsNumber(x) {
     }
 }
 
+export function __assertIsFunction(x) {
+    if (typeof x !== 'function') {
+        throw new Error(`Expected a function, but got ${typeof x}`);
+    }
+}
+
 export function __assertBetween(value, minimum, maximum) {
     if (value < minimum || maximum < value) {
         throw new Error(
             `The value ${value} is not between ${minimum} and ${maximum}`
         );
     }
+}
+
+export function __safeGetElementById(id) {
+    const element = document.getElementById(id);
+    if (!element) {
+        throw new Error(`Element with id "${id}" not found`);
+    }
+    return element;
 }
