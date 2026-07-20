@@ -8,17 +8,17 @@ export class Counter {
     _count = 0;
     _element = null;
 
-    minimal = 0;
-    maximal = 10;
+    minimum = 0;
+    maximum = 10;
     events = {
         change: () => {
             console.log(`Value changed to: ${this.value}`);
         },
-        reachMaximal: () => {
-            console.log('Reached maximal value');
+        reachmaximum: () => {
+            console.log('Reached maximum value');
         },
-        reachMinimal: () => {
-            console.log('Reached minimal value');
+        reachminimum: () => {
+            console.log('Reached minimum value');
         },
     };
 
@@ -35,7 +35,7 @@ export class Counter {
 
     set value(newValue) {
         __assertIsNumber(newValue);
-        __assertBetween(newValue, this.minimal, this.maximal);
+        __assertBetween(newValue, this.minimum, this.maximum);
 
         this.count = newValue;
         this._updateDisplay();
@@ -43,13 +43,13 @@ export class Counter {
     }
 
     increment() {
-        if (this.value < this.maximal) {
+        if (this.value < this.maximum) {
             this.value++;
         }
     }
 
     decrement() {
-        if (this.value > this.minimal) {
+        if (this.value > this.minimum) {
             this.value--;
         }
     }
@@ -59,11 +59,11 @@ export class Counter {
     }
     _fireEvent() {
         this.events.change(this, this.value);
-        if (this.value === this.maximal) {
-            this.events.reachMaximal(this, this.value);
+        if (this.value === this.maximum) {
+            this.events.reachmaximum(this, this.value);
         }
-        if (this.value === this.minimal) {
-            this.events.reachMinimal(this, this.value);
+        if (this.value === this.minimum) {
+            this.events.reachminimum(this, this.value);
         }
     }
 }

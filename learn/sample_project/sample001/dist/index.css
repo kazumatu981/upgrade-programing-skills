@@ -14,9 +14,9 @@ body {
 }
 
 /**
-  * Controlers styles
+  * Controllers styles
   */
-#controlers {
+#controllers {
   display: flex;
   flex-direction: row;
   gap: 10px;
