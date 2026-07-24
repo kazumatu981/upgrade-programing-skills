@@ -2,68 +2,88 @@ import {
     __assertIsString,
     __assertIsNumber,
     __assertBetween,
+    __safeGetElementById,
 } from './assert.js';
 
-export class Counter {
+import { EventHandler } from './event-handler.js';
+
+export class Counter extends EventHandler {
     _count = 0;
     _element = null;
 
-    minimum = 0;
-    maximum = 10;
-    events = {
-        change: () => {
-            console.log(`Value changed to: ${this.value}`);
-        },
-        reachmaximum: () => {
-            console.log('Reached maximum value');
-        },
-        reachminimum: () => {
-            console.log('Reached minimum value');
-        },
-    };
+    _minimum = 0;
+    _maximum = 10;
 
+    /**
+     * M1.カウンタ部品
+     * @param {string} elementId カウンタのDOMオブジェクトのID
+     */
     constructor(elementId) {
+        super();
+
         __assertIsString(elementId);
-
-        this.element = document.getElementById(elementId);
-        this.count = 0;
+        this._element = __safeGetElementById(elementId);
     }
 
+    /**
+     * 値を取得する
+     */
     get value() {
-        return this.count;
+        return this._count;
     }
 
+    /**
+     * 値を設定する。
+     */
     set value(newValue) {
+        // 値の型と範囲をチェックする
         __assertIsNumber(newValue);
         __assertBetween(newValue, this.minimum, this.maximum);
 
-        this.count = newValue;
+        // 値を設定する
+        this._count = newValue;
+
+        // 画面上の表示を更新する
         this._updateDisplay();
-        this._fireEvent();
+
+        // 値が変更したことを通知する
+        this.fire('change', this);
     }
 
+    /**
+     * 下限値
+     */
+    get minimum() {
+        return this._minimum;
+    }
+
+    /**
+     * 上限値
+     */
+    get maximum() {
+        return this._maximum;
+    }
+
+    //#region メソッド
+    /**
+     * 一つ増加させる
+     */
     increment() {
-        if (this.value < this.maximum) {
-            this.value++;
-        }
+        this.value++;
     }
 
+    /**
+     * 一つ減少させる
+     */
     decrement() {
-        if (this.value > this.minimum) {
-            this.value--;
-        }
+        this.value--;
     }
+    //#endregion
 
+    /**
+     * 画面上の表示を更新する
+     */
     _updateDisplay() {
-        this.element.textContent = this.count;
-    }
-    _fireEvent() {
-        this.events.change(this, this.value);
-        if (this.value === this.maximum) {
-            this.events.reachmaximum(this, this.value);
-        }
-        if (this.value === this.minimum) {
-            this.events.reachminimum(this, this.value);
-        }
+        this._element.textContent = this._count;
     }
 }

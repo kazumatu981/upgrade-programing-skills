@@ -38,7 +38,7 @@ body {
 /**
   * Button styles
   */
-.button {
+.enableButton {
   display: inline-block;
   padding: 10px 20px;
   font-size: 1rem;
@@ -48,4 +48,17 @@ body {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+}
+.enableButton:hover {
+  background-color: #0056b3;
+}
+.disableButton {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #6c757d;
+  border: none;
+  border-radius: 5px;
+  cursor: not-allowed;
 }
