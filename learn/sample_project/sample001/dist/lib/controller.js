@@ -5,6 +5,12 @@ export class Controller extends EventHandler {
     _enableIncrement = false;
     _enableDecrement = false;
 
+    //#region コンストラクタ
+    /**
+     * M2.コントローラ部品
+     * @param {string} incrementButtonId プラスボタンのDOMオブジェクトのID
+     * @param {string} decrementButtonId マイナスボタンのDOMオブジェクトのID
+     */
     constructor(incrementButtonId, decrementButtonId) {
         super();
         __assertIsString(incrementButtonId);
@@ -15,22 +21,42 @@ export class Controller extends EventHandler {
 
         this._registerButtonEvents();
     }
+    //#endregion
 
+    //#region プロパティ
+    /**
+     * プラスボタンの有効状態を取得する
+     */
     get enableIncrement() {
         return this._enableIncrement;
     }
+    /**
+     * プラスボタンの有効状態を設定する
+     */
     set enableIncrement(value) {
         this._enableIncrement = value;
         this._setButtonState(this._incrementButton, value);
     }
+    /**
+     * マイナスボタンの有効状態を取得する
+     */
     get enableDecrement() {
         return this._enableDecrement;
     }
+    /**
+     * マイナスボタンの有効状態を設定する
+     */
     set enableDecrement(value) {
         this._enableDecrement = value;
         this._setButtonState(this._decrementButton, value);
     }
+    //#endregion
 
+    //#region 内部メソッド
+    /**
+     * ボタンのクリックイベントを登録する
+     * @private
+     */
     _registerButtonEvents() {
         this._incrementButton.addEventListener('click', () => {
             if (this._enableIncrement) {
@@ -44,6 +70,12 @@ export class Controller extends EventHandler {
         });
     }
 
+    /**
+     * ボタンの状態を設定する
+     * @param {Element} button 対象DOMエレメント
+     * @param {boolean} enabled 活性化する場合はtrue、非活性化する場合はfalse
+     * @private
+     */
     _setButtonState(button, enabled) {
         if (enabled) {
             button.classList.add('enableButton');
@@ -53,4 +85,5 @@ export class Controller extends EventHandler {
             button.classList.remove('enableButton');
         }
     }
+    //#endregion
 }

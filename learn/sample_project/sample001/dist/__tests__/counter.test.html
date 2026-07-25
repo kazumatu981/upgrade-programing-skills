@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>単体テスト:Counterのテスト</title>
+  </head>
+  <body>
+    <h1>単体テスト:Counterのテスト</h1>
+
+    <h2>カウンタ</h2>
+    <div id="counter001">1</div>
+
+    <h2>値の設定</h2>
+
+    <p>
+      <input id="value" type="text" />
+      <input id="convertToString" type="checkbox" /><label for="convertToString"
+        >number に変換</label
+      >
+    </p>
+    <p>
+      <button id="setValue">値の設定</button>
+    </p>
+    <h2>値の増減</h2>
+
+    <button id="increment">increment</button>
+    <button id="decrement">decrement</button>
+    <script type="module" src="./counter.test.js"></script>
+  </body>
+</html>

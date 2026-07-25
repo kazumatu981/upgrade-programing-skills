@@ -15,4 +15,15 @@ function onPageLoad() {
         increment: 'increment',
         decrement: 'decrement',
     });
+
+    app.on('counter_is_changed', (_, value) => {
+        console.log(`値が変更されました: ${value}`);
+    });
+
+    app.on('increment_is_clicked', () => {
+        console.log('プラスボタンがクリックされました');
+    });
+    app.on('decrement_is_clicked', () => {
+        console.log('マイナスボタンがクリックされました');
+    });
 }

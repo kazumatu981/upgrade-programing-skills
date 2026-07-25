@@ -10,10 +10,10 @@ import { EventHandler } from './event-handler.js';
 export class Counter extends EventHandler {
     _count = 0;
     _element = null;
-
     _minimum = 0;
     _maximum = 10;
 
+    //#region コンストラクタ
     /**
      * M1.カウンタ部品
      * @param {string} elementId カウンタのDOMオブジェクトのID
@@ -24,7 +24,9 @@ export class Counter extends EventHandler {
         __assertIsString(elementId);
         this._element = __safeGetElementById(elementId);
     }
+    //#endregion
 
+    //#region プロパティ
     /**
      * 値を取得する
      */
@@ -63,6 +65,7 @@ export class Counter extends EventHandler {
     get maximum() {
         return this._maximum;
     }
+    //#endregion
 
     //#region メソッド
     /**
@@ -80,10 +83,13 @@ export class Counter extends EventHandler {
     }
     //#endregion
 
+    //#region 内部メソッド
     /**
      * 画面上の表示を更新する
+     * @private
      */
     _updateDisplay() {
         this._element.textContent = this._count;
     }
+    //#endregion
 }

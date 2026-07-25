@@ -1,12 +1,16 @@
 import { Counter } from './lib/counter.js';
 import { Controller } from './lib/controller.js';
+import { EventHandler } from './lib/event-handler.js';
 
-export class App {
+export class App extends EventHandler {
     _idDefines;
     _counter;
     _controller;
 
+    //#region コンストラクタ
     constructor(idDefines) {
+        super();
+
         this._idDefines = idDefines;
 
         // カウンタとコントローラを作成する
@@ -22,7 +26,12 @@ export class App {
         // 初期状態を設定する
         this._counter.value = 1;
     }
+    //#endregion
 
+    //#region 内部メソッド
+    /**
+     * イベントを登録する
+     */
     _registerEvents() {
         // カウンタの値の変化を監視する
         this._counter.on('change', () => this._onCounterChange());
@@ -32,7 +41,12 @@ export class App {
         this._controller.on('click_decrement', () => this._onDecrement());
     }
 
+    //#region イベントハンドラ
+    /**
+     * カウンタが変更になった
+     */
     _onCounterChange() {
+        this.fire('counter_is_changed', this._counter.value);
         // もし、上限に達したら、インクリメントボタンを無効化する
         if (this._counter.value >= this._counter.maximum) {
             this._controller.enableIncrement = false;
@@ -47,11 +61,21 @@ export class App {
         }
     }
 
+    /**
+     * プラスボタンがクリックされた
+     */
     _onIncrement() {
+        this.fire('increment_is_clicked');
         this._counter.increment();
     }
 
+    /**
+     * マイナスボタンがクリックされた
+     */
     _onDecrement() {
+        this.fire('decrement_is_clicked');
         this._counter.decrement();
     }
+    //#endregion
+    //#endregion
 }
