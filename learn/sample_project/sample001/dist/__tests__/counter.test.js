@@ -9,13 +9,22 @@ document.addEventListener('DOMContentLoaded', onPageLoad);
 function onPageLoad() {
     const counter = new Counter('counter001');
 
+    /**
+     * increment ボタンをクリックしたとき
+     */
     document.getElementById('increment').addEventListener('click', () => {
         counter.increment();
     });
+    /**
+     * decrement ボタンをクリックしたとき
+     */
     document.getElementById('decrement').addEventListener('click', () => {
         counter.decrement();
     });
 
+    /**
+     * set valueボタンをクリックしたとき
+     */
     document.getElementById('setValue').addEventListener('click', () => {
         const value = document.getElementById('value').value;
         const convertToString =
