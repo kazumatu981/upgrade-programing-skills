@@ -1,16 +1,21 @@
 import { __assertIsString, __safeGetElementById } from './assert.js';
 import { EventHandler } from './event-handler.js';
 
+export const EVENT_NAME_STARTED = 'started';
+export const EVENT_NAME_STOPPING = 'stopping';
+export const EVENT_NAME_STOPPED = 'stopped';
+export const EVENT_NAME_CHANGED = 'changed';
+
 const ROLLING_STATE = {
     started: 0,
     stopping: 1,
     stopped: 2,
 };
 
-const EVENT_NAME = {
-    0: 'started',
-    1: 'stoppig',
-    2: 'stopped',
+const STATE_TO_EVENT = {
+    0: EVENT_NAME_STARTED,
+    1: EVENT_NAME_STOPPING,
+    2: EVENT_NAME_STOPPED,
 };
 
 const ROLLING_INTERVAL = 100;
@@ -23,96 +28,112 @@ export class Dice extends EventHandler {
     _value = 1;
     _state = ROLLING_STATE.stopped;
     _untilStop = UNTIL_STOP_DEFAULT;
-    _untilStopCounter = 0;
+    _stoppingCounter = 0;
 
     constructor(elementId) {
         super();
         __assertIsString(elementId);
         this._element = __safeGetElementById(elementId);
-        this.on(EVENT_NAME[ROLLING_STATE.started], this._onStarted.bind(this));
-    }
-    get state() {
-        return this._state;
-    }
-    set state(value) {
-        this._state = value;
-        this.fire(EVENT_NAME[value], this);
+        this.on(
+            STATE_TO_EVENT[ROLLING_STATE.started],
+            this._onStarted.bind(this)
+        );
+        this.on(EVENT_NAME_CHANGED, this._onChanged.bind(this));
     }
 
     get value() {
         return this._value;
     }
 
+    get state() {
+        return this._state;
+    }
+
     set value(newValue) {
         // 値の型と範囲をチェックする
         __assertIsNumber(newValue);
         __assertBetween(newValue, 1, 6);
-        this._setUnsafeValue(newValue);
+        this._unsafeValue = newValue;
     }
 
     start() {
         if (this.state !== ROLLING_STATE.stopped) {
             return;
         }
-        this.state = ROLLING_STATE.started;
+        this._unsafeState = ROLLING_STATE.started;
     }
 
     stop() {
         if (this.state !== ROLLING_STATE.started) {
             return;
         }
-        this.state = ROLLING_STATE.stopping;
+        this._unsafeState = ROLLING_STATE.stopping;
+    }
+
+    get _interval() {
+        return this.state === ROLLING_STATE.started
+            ? ROLLING_INTERVAL
+            : STOPPING_INTERVAL;
+    }
+
+    get _shouldBreakLoop() {
+        return (
+            this.state === ROLLING_STATE.stopped ||
+            (this.state === ROLLING_STATE.stopping &&
+                this._untilStop < this._stoppingCounter)
+        );
+    }
+
+    set _unsafeState(value) {
+        if (this._state !== value) {
+            this._state = value;
+            this.fire(STATE_TO_EVENT[value], this);
+        }
+    }
+
+    set _unsafeValue(value) {
+        this._value = value;
+        this.fire(EVENT_NAME_CHANGED, this);
     }
 
     _onStarted() {
-        this._loopInit();
-        this._loop();
+        this._initLoop();
+        this._runLoop();
     }
 
-    _loopInit() {
+    _onChanged() {
+        if (this._element) {
+            this._element.textContent = this.value.toString();
+        }
+        if (this.state === ROLLING_STATE.stopping) {
+            this._stoppingCounter++;
+        }
+    }
+
+    _initLoop() {
         // UNTIL_STOP_DEFAULTを中心に±UNTIL_STOP_AROUNDの範囲で
-        this._untilStop = getRandom(
+        this._untilStop = getRandomValue(
             UNTIL_STOP_DEFAULT - UNTIL_STOP_AROUND,
             UNTIL_STOP_DEFAULT + UNTIL_STOP_AROUND
         );
-        this._untilStopCounter = 0;
+        this._stoppingCounter = 0;
     }
-    _loop() {
-        // 停止状態の場合は何もしない
-        if (this.state === ROLLING_STATE.stopped) return;
-        // 停止中ならループカウンタを判定する
-        if (
-            this.state === ROLLING_STATE.stopping &&
-            this._untilStop < this._untilStopCounter++
-        ) {
-            this.state = ROLLING_STATE.stopped;
+    _runLoop() {
+        // さいころを止めるべき場合は何もせずにそこで終わる
+        if (this._shouldBreakLoop) {
+            this._unsafeState = ROLLING_STATE.stopped;
             return;
         }
 
         // さいころを次の目にする
-        this._rolling();
-
-        // 実行間隔を現在の状態で決定する
-        const interval =
-            this.state === ROLLING_STATE.started
-                ? ROLLING_INTERVAL
-                : STOPPING_INTERVAL;
+        this._roll();
 
         // 実行間隔後に再起呼び出しをする
-        setTimeout(this._loop.bind(this), interval);
+        setTimeout(this._runLoop.bind(this), this._interval);
     }
 
-    _setUnsafeValue(value) {
-        this._value = value;
-        this.fire('changed', this);
-    }
-
-    _rolling() {
-        var newValue = getRandom(1, 6, this.value);
-        this._setUnsafeValue(newValue);
-        if (this._element) {
-            this._element.textContent = this.value.toString();
-        }
+    _roll() {
+        this._unsafeValue = getRandomValue(1, 6, this.value);
     }
 }
 
@@ -122,7 +143,7 @@ export class Dice extends EventHandler {
  * @param {number} max 最大の値
  * @param {number || undefined} prev 一つ前の値
  */
-function getRandom(min, max, prev) {
+function getRandomValue(min, max, prev) {
     var newValue = Math.floor(Math.random() * (max - min + 1)) + min;
     while (prev === newValue) {
         newValue = Math.floor(Math.random() * (max - min + 1)) + min;
