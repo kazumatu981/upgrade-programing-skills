@@ -16,6 +16,12 @@ export function __assertIsFunction(x) {
     }
 }
 
+export function __assertIsIncludedIn(value, array) {
+    if (!array.includes(value)) {
+        throw new Error(`The value ${value} is not included in the array`);
+    }
+}
+
 export function __assertBetween(value, minimum, maximum) {
     if (value < minimum || maximum < value) {
         throw new Error(
