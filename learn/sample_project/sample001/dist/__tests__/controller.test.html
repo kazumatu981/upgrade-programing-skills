@@ -2,6 +2,16 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <style>
+      .enableButton {
+        background-color: #4caf50;
+        color: white;
+      }
+      .disableButton {
+        background-color: #f44336;
+        color: white;
+      }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>単体テスト:Controllerのテスト</title>
   </head>
@@ -11,8 +21,8 @@
     <h2>コントローラ</h2>
     <p>
       <div id="controllers">
-        <div id="increment">増加</div>
-        <div id="decrement">減少</div>
+        <div id="increment" class="enableButton">増加</div>
+        <div id="decrement" class="enableButton">減少</div>
       </div>
     </p>
 
