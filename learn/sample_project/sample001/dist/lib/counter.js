@@ -20,8 +20,8 @@ export class Counter extends EventHandler {
      */
     constructor(elementId) {
         super();
-
         __assertIsString(elementId);
+
         this._element = __safeGetElementById(elementId);
     }
     //#endregion
@@ -38,18 +38,10 @@ export class Counter extends EventHandler {
      * 値を設定する。
      */
     set value(newValue) {
-        // 値の型と範囲をチェックする
+        // 値の型をチェックする
         __assertIsNumber(newValue);
-        __assertBetween(newValue, this.minimum, this.maximum);
 
-        // 値を設定する
-        this._count = newValue;
-
-        // 画面上の表示を更新する
-        this._updateDisplay();
-
-        // 値が変更したことを通知する
-        this.fire('change', this);
+        this._unsafeValue = newValue;
     }
 
     /**
@@ -72,24 +64,42 @@ export class Counter extends EventHandler {
      * 一つ増加させる
      */
     increment() {
-        this.value++;
+        this.unsafValue++;
     }
 
     /**
      * 一つ減少させる
      */
     decrement() {
-        this.value--;
+        this.unsafValue--;
     }
     //#endregion
 
-    //#region 内部メソッド
+    //#region 内部メンバ
+
+    /**
+     * 型チェックを行わずに値を設定する
+     * クラス内部で値を設定する場合に使用する
+     * @param {number} newValue 新しい値
+     * @private
+     */
+    set _unsafeValue(newValue) {
+        // 値の範囲をチェックする
+        __assertBetween(newValue, this.minimum, this.maximum);
+
+        this._count = newValue;
+        this._updateDisplay();
+
+        this.fire('change', this);
+    }
     /**
      * 画面上の表示を更新する
      * @private
      */
     _updateDisplay() {
-        this._element.textContent = this._count;
+        if (this._element) {
+            this._element.textContent = this._count;
+        }
     }
     //#endregion
 }

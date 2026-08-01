@@ -35,7 +35,7 @@ export class Controller extends EventHandler {
      */
     set enableIncrement(value) {
         this._enableIncrement = value;
-        this._setButtonState(this._incrementButton, value);
+        this._setButtonStyle(this._incrementButton, value);
     }
     /**
      * マイナスボタンの有効状態を取得する
@@ -48,7 +48,7 @@ export class Controller extends EventHandler {
      */
     set enableDecrement(value) {
         this._enableDecrement = value;
-        this._setButtonState(this._decrementButton, value);
+        this._setButtonStyle(this._decrementButton, value);
     }
     //#endregion
 
@@ -59,24 +59,24 @@ export class Controller extends EventHandler {
      */
     _registerButtonEvents() {
         this._incrementButton.addEventListener('click', () => {
-            if (this._enableIncrement) {
+            if (this.enableIncrement) {
                 this.fire('click_increment', this);
             }
         });
         this._decrementButton.addEventListener('click', () => {
-            if (this._enableDecrement) {
+            if (this.enableDecrement) {
                 this.fire('click_decrement', this);
             }
         });
     }
 
     /**
-     * ボタンの状態を設定する
+     * ボタンのスタイルを設定する
      * @param {Element} button 対象DOMエレメント
      * @param {boolean} enabled 活性化する場合はtrue、非活性化する場合はfalse
      * @private
      */
-    _setButtonState(button, enabled) {
+    _setButtonStyle(button, enabled) {
         if (enabled) {
             button.classList.add('enableButton');
             button.classList.remove('disableButton');
