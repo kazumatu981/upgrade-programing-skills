@@ -3,14 +3,9 @@ import { __assertIsString, __assertIsFunction } from './assert.js';
  * イベントを管理する基底クラス。 本プロジェクトで活用する部品はこれを継承して作成すること。
  */
 export class EventHandler {
-    //#region コンストラクタ
-    /**
-     * イベントハンドラを初期化する。
-     */
     constructor() {
         this._events = {};
     }
-    //#endregion
 
     //#region メソッド
     /**

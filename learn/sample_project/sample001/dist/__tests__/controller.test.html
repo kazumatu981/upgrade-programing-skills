@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .enableButton {
+        background-color: #4caf50;
+        color: white;
+      }
+      .disableButton {
+        background-color: #f44336;
+        color: white;
+      }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>単体テスト:Controllerのテスト</title>
+  </head>
+  <body>
+    <h1>単体テスト:Controllerのテスト</h1>
+
+    <h2>コントローラ</h2>
+    <p>
+      <div id="controllers">
+        <div id="increment" class="enableButton">増加</div>
+        <div id="decrement" class="enableButton">減少</div>
+      </div>
+    </p>
+
+    <p>
+        <button id="enableIncrement">enableIncrement = true</button>
+        <button id="disableIncrement">enableIncrement = false</button>        
+    </p>
+
+    <p>
+        <button id="enableDecrement">enableDecrement = true</button>
+        <button id="disableDecrement">enableDecrement = false</button>        
+    </p>
+
+    <script type="module" src="./controller.test.js"></script>
+  </body>
+</html>
