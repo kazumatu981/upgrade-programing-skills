@@ -1,14 +1,41 @@
 import { __assertIsString, __safeGetElementById } from './assert.js';
 import { EventHandler } from './event-handler.js';
 
+/////////////////////////////////////////////
+// さいころの状態が変化したときに発火するイベント名
+
+/**
+ * さいころが転がり始めたときに発火するイベント名
+ */
 export const EVENT_NAME_STARTED = 'started';
+/**
+ * さいころが止まろうとしているときに発火するイベント名
+ */
 export const EVENT_NAME_STOPPING = 'stopping';
+/**
+ * さいころが止まったときに発火するイベント名
+ */
 export const EVENT_NAME_STOPPED = 'stopped';
+/**
+ * さいころの値が変化したときに発火するイベント名
+ */
 export const EVENT_NAME_CHANGED = 'changed';
 
-const ROLLING_STATE = {
+/**
+ * さいころの状態を表す定数
+ */
+export const ROLLING_STATE = {
+    /**
+     * さいころが転がっている状態
+     */
     started: 0,
+    /**
+     * さいころが止まろうとしている状態
+     */
     stopping: 1,
+    /**
+     * さいころが止まった状態
+     */
     stopped: 2,
 };
 
@@ -30,23 +57,30 @@ export class Dice extends EventHandler {
     _untilStop = UNTIL_STOP_DEFAULT;
     _stoppingCounter = 0;
 
+    //#region constructor
+    /**
+     * さいころの目を管理するクラスのインスタンスを生成する
+     * @param {string} elementId さいころの要素名
+     */
     constructor(elementId) {
         super();
+        // 引数の妥当性確認
         __assertIsString(elementId);
         this._element = __safeGetElementById(elementId);
+
+        // スタートイベントを登録する
         this.on(
             STATE_TO_EVENT[ROLLING_STATE.started],
             this._onStarted.bind(this)
         );
+        // 値変化イベントを登録する
         this.on(EVENT_NAME_CHANGED, this._onChanged.bind(this));
     }
+    //#endregion
 
+    //#region public properties
     get value() {
         return this._value;
-    }
-
-    get state() {
-        return this._state;
     }
 
     set value(newValue) {
@@ -56,6 +90,20 @@ export class Dice extends EventHandler {
         this._unsafeValue = newValue;
     }
 
+    /**
+     * さいころの状態を取得する。
+     *
+     * ROLING_STATEのいずれかの値を返却する。
+     *
+     * @returns {number} さいころの状態
+     */
+    get state() {
+        return this._state;
+    }
+
+    //#endregion
+
+    //#region public methods
     start() {
         if (this.state !== ROLLING_STATE.stopped) {
             return;
@@ -69,7 +117,9 @@ export class Dice extends EventHandler {
         }
         this._unsafeState = ROLLING_STATE.stopping;
     }
+    //#endregion
 
+    //#region private members
     get _interval() {
         return this.state === ROLLING_STATE.started
             ? ROLLING_INTERVAL
@@ -110,6 +160,9 @@ export class Dice extends EventHandler {
         }
     }
 
+    /**
+     * さいころ目変更ループ初期化処理
+     */
     _initLoop() {
         // UNTIL_STOP_DEFAULTを中心に±UNTIL_STOP_AROUNDの範囲で
         this._untilStop = getRandomValue(
@@ -118,6 +171,9 @@ export class Dice extends EventHandler {
         );
         this._stoppingCounter = 0;
     }
+    /**
+     *
+     */
     _runLoop() {
         // さいころを止めるべき場合は何もせずにそこで終わる
         if (this._shouldBreakLoop) {
@@ -135,6 +191,7 @@ export class Dice extends EventHandler {
     _roll() {
         this._unsafeValue = getRandomValue(1, 6, this.value);
     }
+    //#endregion
 }
 
 /**
