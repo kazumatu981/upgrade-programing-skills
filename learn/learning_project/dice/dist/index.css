@@ -1,0 +1,66 @@
+/* Use a monospaced font for the whole document */
+body {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/**
+  * App styles
+  */
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/**
+  * dices styles
+  */
+#dices {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.dice {
+  font-size: 2rem;
+  border: 2px solid #333;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  width: 2em;
+}
+
+/**
+  * Button styles
+  */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 20rem;
+}
+.start-button {
+  color: #fff;
+  background-color: #007bff;
+}
+.start-button:hover {
+  background-color: #0056b3;
+}
+.stop-button {
+  color: #fff;
+  background-color: #dc3545;
+}
+.stop-button:hover {
+  background-color: #c82333;
+}
+.stopping-button {
+  color: #fff;
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
