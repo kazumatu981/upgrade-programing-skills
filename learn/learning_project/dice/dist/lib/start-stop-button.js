@@ -8,17 +8,20 @@ import { EventHandler } from './event-handler.js';
 export const BUTTON_TYPE_START = 'start';
 export const BUTTON_TYPE_STOPPING = 'stopping';
 export const BUTTON_TYPE_STOP = 'stop';
+export const BUTTON_TYPE_ROLLING = 'rolling';
 
 const BUTTON_FACE = {
     [BUTTON_TYPE_START]: 'Start',
     [BUTTON_TYPE_STOPPING]: 'Stopping...',
     [BUTTON_TYPE_STOP]: 'Stop',
+    [BUTTON_TYPE_ROLLING]: 'Rolling...',
 };
 
 const BUTTON_CLASS = {
     [BUTTON_TYPE_START]: 'start-button',
     [BUTTON_TYPE_STOPPING]: 'stopping-button',
     [BUTTON_TYPE_STOP]: 'stop-button',
+    [BUTTON_TYPE_ROLLING]: 'rolling-button',
 };
 
 export const EVENT_ON_CLICK_START = 'click_start';
