@@ -64,3 +64,8 @@ body {
   background-color: #6c757d;
   cursor: not-allowed;
 }
+.rolling-button {
+  color: #fff;
+  background-color: #ffc107;
+  cursor: not-allowed;
+}
