@@ -14,51 +14,53 @@ body {
 }
 
 /**
-  * Controllers styles
+  * dices styles
   */
-#controllers {
+#dices {
   display: flex;
   flex-direction: row;
   gap: 10px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
-
-/**
-  * Counter styles
-  */
-.counter {
+.dice {
   font-size: 2rem;
   border: 2px solid #333;
   border-radius: 10px;
   padding: 20px;
   text-align: center;
-  width: 3em;
+  width: 2em;
 }
 
 /**
   * Button styles
   */
-.enableButton {
+.button {
   display: inline-block;
   padding: 10px 20px;
   font-size: 1rem;
-  color: #fff;
-  background-color: #007bff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 20rem;
 }
-.enableButton:hover {
+.start-button {
+  color: #fff;
+  background-color: #007bff;
+}
+.start-button:hover {
   background-color: #0056b3;
 }
-.disableButton {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 1rem;
+.stop-button {
+  color: #fff;
+  background-color: #dc3545;
+}
+.stop-button:hover {
+  background-color: #c82333;
+}
+.stopping-button {
   color: #fff;
   background-color: #6c757d;
-  border: none;
-  border-radius: 5px;
   cursor: not-allowed;
 }

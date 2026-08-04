@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>単体テスト:StartStopButtonのテスト</title>
+  </head>
+  <body>
+    <h1>単体テスト:StartStopButtonのテスト</h1>
+
+    <h2>StartStopButton</h2>
+    <p>
+      <button id="rollButton" class="button start-button">Start</button>
+    </p>
+
+    <h2>buttonTypeプロパティ</h2>
+    <p>
+      <input type="text" id="buttonType" />
+      <select id="buttonTypes">
+        <option value="start">start</option>
+        <option value="stopping">stopping</option>
+        <option value="stop">stop</option>
+      </select>
+      <button id="setButtonType">set buttonType</button>
+    </p>
+
+    <script type="module" src="./start-stop-button.test.js"></script>
+  </body>
+</html>
