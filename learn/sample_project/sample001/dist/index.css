@@ -26,7 +26,7 @@ body {
 /**
   * Counter styles
   */
-#counter {
+.counter {
   font-size: 2rem;
   border: 2px solid #333;
   border-radius: 10px;

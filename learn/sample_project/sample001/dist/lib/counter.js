@@ -64,14 +64,14 @@ export class Counter extends EventHandler {
      * 一つ増加させる
      */
     increment() {
-        this.unsafValue++;
+        this._unsafeValue++;
     }
 
     /**
      * 一つ減少させる
      */
     decrement() {
-        this.unsafValue--;
+        this._unsafeValue--;
     }
     //#endregion
 
@@ -91,6 +91,9 @@ export class Counter extends EventHandler {
         this._updateDisplay();
 
         this.fire('change', this);
+    }
+    get _unsafeValue() {
+        return this._count;
     }
     /**
      * 画面上の表示を更新する
