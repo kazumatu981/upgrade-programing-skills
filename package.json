@@ -1,10 +1,10 @@
 {
-    "name": "upgrade-programing-skills",
+    "name": "upgrade-programming-skills",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint learn",
         "presentation": "npx @marp-team/marp-cli@latest -s ./documents/docs"
     },
     "repository": {
@@ -17,5 +17,10 @@
     "bugs": {
         "url": "https://github.com/kazumatu981/upgrade-programing-skills/issues"
     },
-    "homepage": "https://github.com/kazumatu981/upgrade-programing-skills#readme"
+    "homepage": "https://github.com/kazumatu981/upgrade-programing-skills#readme",
+    "devDependencies": {
+        "@eslint/js": "latest",
+        "eslint": "latest",
+        "globals": "latest"
+    }
 }
