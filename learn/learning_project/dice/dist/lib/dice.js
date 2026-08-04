@@ -229,7 +229,7 @@ export class Dice extends EventHandler {
  * @param {number || undefined} prev 一つ前の値
  */
 function getRandomValue(min, max, prev) {
-    var newValue = Math.floor(Math.random() * (max - min + 1)) + min;
+    let newValue = Math.floor(Math.random() * (max - min + 1)) + min;
     while (prev === newValue) {
         newValue = Math.floor(Math.random() * (max - min + 1)) + min;
     }

@@ -4,6 +4,8 @@
         "kisstkondoros.vscode-codemetrics",
         "esbenp.prettier-vscode",
         "hediet.vscode-drawio",
-        "marp-team.marp-vscode"
+        "marp-team.marp-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "dbaeumer.vscode-eslint"
     ]
 }

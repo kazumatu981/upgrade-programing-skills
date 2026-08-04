@@ -4,6 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "lint": "eslint learn",
         "presentation": "npx @marp-team/marp-cli@latest -s ./documents/docs"
     },
     "repository": {
@@ -16,5 +17,10 @@
     "bugs": {
         "url": "https://github.com/kazumatu981/upgrade-programing-skills/issues"
     },
-    "homepage": "https://github.com/kazumatu981/upgrade-programing-skills#readme"
+    "homepage": "https://github.com/kazumatu981/upgrade-programing-skills#readme",
+    "devDependencies": {
+        "@eslint/js": "latest",
+        "eslint": "latest",
+        "globals": "latest"
+    }
 }
