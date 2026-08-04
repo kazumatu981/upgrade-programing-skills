@@ -99,7 +99,7 @@ export class Dice extends EventHandler {
     /**
      * さいころの状態を取得する。
      *
-     * ROLING_STATEのいずれかの値を返却する。
+     * ROLLING_STATEのいずれかの値を返却する。
      *
      * @returns {number} さいころの状態
      */
