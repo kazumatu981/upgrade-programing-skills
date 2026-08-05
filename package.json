@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "lint": "eslint learn",
-        "presentation": "npx @marp-team/marp-cli@latest -s ./documents/docs"
+        "presentation": "npx @marp-team/marp-cli@latest -s ./text-book/docs"
     },
     "repository": {
         "type": "git",
